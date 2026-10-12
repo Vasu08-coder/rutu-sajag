@@ -66,11 +66,33 @@ export interface AppState {
   alerts: AppAlert[];
   alertsLoading: boolean;
   activeLiveAlert: AppAlert | null;
+
+  // Livestock Species Selection v2 state
+  livestockProfile: LivestockProfileItem[];
+  profileAnimalsExpanded?: boolean;
 }
 
-const PERSIST_KEY = 'rutu_sajag_state';
+export interface LivestockProfileItem {
+  uiSpeciesId: string;
+  breedType?: 'indigenous' | 'crossbred';
+}
 
-function isDemoUrl(): boolean {
+const env: any = (typeof import.meta !== 'undefined' && import.meta.env) ? import.meta.env : ((globalThis as any).process?.env || {});
+
+export function isDebugEnabled(envObj?: any): boolean {
+  const e = envObj || env;
+  return Boolean(e.DEV) || e.VITE_ENABLE_DEBUG === 'true';
+}
+
+export const DEBUG_ENABLED = isDebugEnabled(env);
+export const FEATURE_SPECIES_V2 = env.VITE_FEATURE_SPECIES_V2 === 'true';
+export const INCLUDE_DRAFT_CONTENT = Boolean(env.DEV) || env.VITE_INCLUDE_DRAFT_CONTENT === 'true';
+
+const PERSIST_KEY = 'rutu_sajag_state';
+const LIVESTOCK_PERSIST_KEY = 'livestockProfile.v2';
+
+export function isDemoUrl(debugEnabled: boolean = DEBUG_ENABLED): boolean {
+  if (!debugEnabled) return false;
   if (typeof window === 'undefined') return false;
   const params = new URLSearchParams(window.location.search);
   return params.get('demo') === '1';
@@ -86,27 +108,136 @@ function loadPersisted(): Partial<AppState> {
   }
 }
 
+export function loadPersistedLivestock(): LivestockProfileItem[] {
+  try {
+    const raw = localStorage.getItem(LIVESTOCK_PERSIST_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) {
+      return parsed.filter(item => item && typeof item.uiSpeciesId === 'string');
+    }
+    return [];
+  } catch {
+    return [];
+  }
+}
+
+export function savePersistedLivestock(profile: LivestockProfileItem[]): void {
+  try {
+    localStorage.setItem(LIVESTOCK_PERSIST_KEY, JSON.stringify(profile));
+  } catch {
+    // Ignore storage errors
+  }
+}
+
 function savePersisted(s: AppState): void {
   try {
-    const data = { lang: s.lang, role: s.role, loc: s.loc };
+    // URL overrides are never written to localStorage in production
+    const langToSave = (!DEBUG_ENABLED && hasUrlLangOverride) ? (persisted.lang || 'mr') : s.lang;
+    const data = { lang: langToSave, role: s.role, loc: s.loc };
     localStorage.setItem(PERSIST_KEY, JSON.stringify(data));
+    if (FEATURE_SPECIES_V2) {
+      savePersistedLivestock(s.livestockProfile);
+    }
   } catch {
     // Ignore storage errors
   }
 }
 
 const persisted = loadPersisted();
-const isDemoMode = isDemoUrl();
+const persistedLivestock = loadPersistedLivestock();
 
 const urlParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
-const urlLang = urlParams?.get('lang') as LangCode | null;
-const urlScreen = urlParams?.get('screen') as Screen | null;
+
+// ?lang is kept from original prototype as it is harmless display-only and does not affect safety calculations
+const rawLang = urlParams?.get('lang');
+const urlLang = (rawLang === 'mr' || rawLang === 'hi' || rawLang === 'en') ? (rawLang as LangCode) : null;
+let hasUrlLangOverride = Boolean(urlLang && urlLang !== persisted.lang);
+
+export function clearUrlLangOverride(): void {
+  hasUrlLangOverride = false;
+}
+
+export function parseUrlAnimals(param: string | null | undefined): LivestockProfileItem[] | null {
+  if (!param) return null;
+  return param.split(',').map(part => {
+    const [uiSpeciesId, breedType] = part.split(':');
+    return {
+      uiSpeciesId,
+      breedType: (breedType === 'indigenous' || breedType === 'crossbred') ? breedType : (uiSpeciesId === 'cow' || uiSpeciesId === 'bullock' ? 'crossbred' : undefined)
+    };
+  });
+}
+
+export function resolveInitialStateFromUrl(
+  search: string,
+  persistedState: Partial<AppState>,
+  persistedLivestockList: LivestockProfileItem[],
+  debugEnabled: boolean = DEBUG_ENABLED
+): {
+  isDemo: boolean;
+  screen: Screen;
+  role: number;
+  livestockProfile: LivestockProfileItem[];
+  lang: LangCode;
+  scenario: string | null;
+  allowDebug: boolean;
+} {
+  const params = new URLSearchParams(search);
+  const rLang = params.get('lang');
+  const validLang = (rLang === 'mr' || rLang === 'hi' || rLang === 'en') ? (rLang as LangCode) : null;
+  const lang = validLang || (persistedState.lang as LangCode) || 'mr';
+
+  // In production (debugEnabled is false), all debug/testing/demo overrides are strictly ignored
+  if (!debugEnabled) {
+    return {
+      isDemo: false,
+      screen: (persistedState.loc ? 'home' : 'onb'),
+      role: persistedState.role ?? 0,
+      livestockProfile: persistedLivestockList,
+      lang,
+      scenario: null,
+      allowDebug: false,
+    };
+  }
+
+  const isDemo = params.get('demo') === '1';
+  const isDebugMode = params.get('debug') === '1';
+  const roleParam = params.get('role');
+  const role = roleParam != null ? parseInt(roleParam, 10) : (persistedState.role ?? 0);
+  const screenParam = params.get('screen') as Screen | null;
+  const screen = screenParam || (persistedState.loc ? 'home' : 'onb');
+  const animalsParam = params.get('animals');
+  const parsedAnimals = parseUrlAnimals(animalsParam);
+  const livestockProfile = parsedAnimals ?? persistedLivestockList;
+  const scenario = params.get('scenario');
+
+  return {
+    isDemo,
+    screen,
+    role,
+    livestockProfile,
+    lang,
+    scenario,
+    allowDebug: isDebugMode,
+  };
+}
+
+const resolvedInit = resolveInitialStateFromUrl(
+  typeof window !== 'undefined' ? window.location.search : '',
+  persisted,
+  persistedLivestock,
+  DEBUG_ENABLED
+);
+
+const isDemoMode = resolvedInit.isDemo;
+const urlAnimalsExpanded = DEBUG_ENABLED && urlParams?.get('expandAnimals') === '1';
 
 export const S: AppState = {
   isDemo: isDemoMode,
-  lang: urlLang || (persisted.lang as LangCode) || 'mr',
-  role: persisted.role ?? 0,
-  screen: urlScreen || (persisted.loc ? 'home' : 'onb'),
+  lang: resolvedInit.lang,
+  role: resolvedInit.role,
+  screen: resolvedInit.screen,
   activity: null,
   loc: persisted.loc ?? { placeId: 'yavatmal', lat: 20.39, lon: 78.13, source: 'manual' },
   locReturn: 'home',
@@ -125,6 +256,9 @@ export const S: AppState = {
   alerts: [],
   alertsLoading: false,
   activeLiveAlert: null,
+
+  livestockProfile: resolvedInit.livestockProfile,
+  profileAnimalsExpanded: urlAnimalsExpanded,
 };
 
 let _render: (() => void) | null = null;
@@ -246,7 +380,7 @@ export async function refreshAlerts(): Promise<void> {
 
   // Fetch official NDMA SACHET alerts via proxy
   try {
-    const proxyUrl = (import.meta.env.VITE_ALERTS_PROXY_URL as string) || '/api/sachet';
+    const proxyUrl = (env.VITE_ALERTS_PROXY_URL as string) || '/api/sachet';
     const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(6000) });
     if (res.ok) {
       const json = await res.json();

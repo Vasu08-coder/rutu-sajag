@@ -3,6 +3,8 @@ import './styles/app.css';
 
 import {
   S,
+  DEBUG_ENABLED,
+  clearUrlLangOverride,
   setRenderer,
   render,
   computedView,
@@ -45,8 +47,6 @@ const DEV_SCREENS: [Screen, string][] = [
   ['prof', 'Profile'],
 ];
 
-const IS_DEV = import.meta.env.DEV;
-
 let tick: ReturnType<typeof setInterval> | null = null;
 let lastScr: Screen | null = null;
 
@@ -65,9 +65,9 @@ function draw(): void {
 
   const devEl = document.getElementById('dev')!;
   const urlParams = new URLSearchParams(window.location.search);
-  const isDebugMode = urlParams.get('debug') === '1';
+  const isDebugMode = DEBUG_ENABLED && urlParams.get('debug') === '1';
 
-  if (IS_DEV || isDebugMode) {
+  if (DEBUG_ENABLED) {
     const screensHtml = DEV_SCREENS
       .map(([id, label]) => `<button class="${S.screen === id ? 'on' : ''}" onclick="window.__app.nav('${id}')">${label}</button>`)
       .join('');
@@ -87,8 +87,10 @@ function draw(): void {
       : '';
 
     devEl.innerHTML = screensHtml + debugSimHtml;
+    devEl.style.display = '';
   } else {
     devEl.style.display = 'none';
+    devEl.innerHTML = '';
   }
 
   // Countdown timer for live alert screen
@@ -143,6 +145,7 @@ const app = {
   },
 
   setLang(lang: LangCode): void {
+    clearUrlLangOverride();
     S.lang = lang;
     document.documentElement.lang = lang;
     render();
@@ -313,6 +316,36 @@ const app = {
   resetLiveWeather(): void {
     refreshLiveWeatherAndAlerts(true);
   },
+
+  // Livestock Species Selection v2 handlers
+  toggleSpecies(uiSpeciesId: string): void {
+    const idx = S.livestockProfile.findIndex(item => item.uiSpeciesId === uiSpeciesId);
+    if (idx >= 0) {
+      S.livestockProfile.splice(idx, 1);
+    } else {
+      // Default cow and bullock to 'crossbred' if not specified
+      const defaultBreed = (uiSpeciesId === 'cow' || uiSpeciesId === 'bullock') ? 'crossbred' : undefined;
+      S.livestockProfile.push({ uiSpeciesId, breedType: defaultBreed });
+    }
+    render();
+  },
+
+  setSpeciesBreed(uiSpeciesId: string, breed: 'indigenous' | 'crossbred' | 'dont_know'): void {
+    const item = S.livestockProfile.find(i => i.uiSpeciesId === uiSpeciesId);
+    if (item) {
+      if (breed === 'dont_know') {
+        item.breedType = undefined; // Will resolve to 'crossbred' at runtime via resolveBreedType
+      } else {
+        item.breedType = breed;
+      }
+      render();
+    }
+  },
+
+  toggleAnimalsPanel(): void {
+    S.profileAnimalsExpanded = !S.profileAnimalsExpanded;
+    render();
+  },
 };
 
 (window as unknown as { __app: typeof app }).__app = app;
@@ -350,7 +383,28 @@ if ('serviceWorker' in navigator) {
 document.documentElement.lang = S.lang;
 draw();
 
-// Initial weather fetch if location is already set
+// Initial weather fetch or debug scenario if location is already set
 if (S.loc?.lat != null && S.loc?.lon != null) {
-  refreshLiveWeatherAndAlerts();
+  const urlParams = new URLSearchParams(window.location.search);
+  const scenario = DEBUG_ENABLED ? urlParams.get('scenario') : null;
+  if (scenario) {
+    (app as any).injectScenario(scenario);
+  } else {
+    refreshLiveWeatherAndAlerts();
+  }
+}
+
+if (typeof window !== 'undefined' && DEBUG_ENABLED) {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('scroll') === 'animals') {
+    setTimeout(() => {
+      const el = document.getElementById('animals-section');
+      if (el) {
+        el.scrollIntoView();
+      } else {
+        const scr = document.getElementById('scr');
+        if (scr) scr.scrollTop = scr.scrollHeight;
+      }
+    }, 200);
+  }
 }

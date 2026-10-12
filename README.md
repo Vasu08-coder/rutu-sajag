@@ -180,3 +180,45 @@ export interface WebPushPayload {
    - One-tap toggle in the Profile screen to unsubscribe and revoke notification permissions.
    - The push server immediately purges the endpoint and keys upon HTTP 410 (Gone) or explicit unsubscription.
 
+---
+
+## 🐄 Livestock Species Selection (v2) — Role 3 (Animal Keeper)
+
+### 1. Overview & Constraints
+An additive feature for **Role 3 (पशुपालक / Animal Keeper)** that allows selecting specific livestock species and breed type (Indigenous vs Crossbred vs Don't know).
+- **Zero invented thresholds**: All scientific rules in `src/config/speciesRules.ts` carry `thresholdStatus = "expert_required"`. The runtime engine `evaluateSpecies()` strictly evaluates them to `"not_evaluated"`.
+- **Advisory-only UI**: Evaluated species and rules without thresholds render as calm, neutral advisory cards using neutral monochrome styling (`--line`, `--mut`, `--cream`, `--w`). They NEVER trigger red/amber risk cards, live alert chimes, or words like "safe", "सुरक्षित", "Yellow", "Orange", or "Red".
+- **Multi-species support**: Users can select multiple animals (e.g., Cow, Buffalo, Goat). Each species displays its own calm card under "आपली जनावरे" ("Your animals").
+- **Isolated persistence**: Stored strictly under a new localStorage key: `livestockProfile.v2` as `[{ uiSpeciesId, breedType? }]`. Existing state keys remain completely untouched.
+
+### 2. Feature Flags
+Configured via `.env` or Vite environment variables:
+- `VITE_FEATURE_SPECIES_V2`:
+  - `false` (default in code): Completely disables the feature. UI and tests run with 100% regression parity with prior versions.
+  - `true` (enabled in `.env.development`): Displays species chips on Onboarding, the "Animals" row on Profile, and "Your animals" neutral cards on Home for Role 3.
+- `VITE_INCLUDE_DRAFT_CONTENT`:
+  - `false` (default for production release): Suppresses draft general advisory tips.
+  - `true` (or Vite `DEV` mode): Exposes draft heat and cold general advisory tips (`needsVetReview: true`).
+
+---
+
+## 🔒 Production Security & URL Parameter Lockdown
+
+### 1. Overview
+In production builds, the app strictly enforces security lockdown:
+- **Shared Guard Helper**: `DEBUG_ENABLED = Boolean(import.meta.env.DEV) || import.meta.env.VITE_ENABLE_DEBUG === 'true'`.
+- In production (`import.meta.env.DEV === false`), `VITE_ENABLE_DEBUG` is absent / false. Thus `DEBUG_ENABLED` is strictly `false`.
+- When `DEBUG_ENABLED` is `false`:
+  - The debug panel (`.dev`) does NOT render and is completely hidden (`display: none`).
+  - ALL debug and testing URL parameters are strictly ignored: `?debug`, `?role`, `?animals`, `?expandAnimals`, `?scenario`, `?scroll`, and `?screen`.
+  - `?debug=1` has zero effect in production.
+  - URL overrides are never applied to state or written to `localStorage`.
+  - Harmless prototype display parameters such as `?lang` (which only switches UI language without affecting weather or safety calculations) are retained for display only and never overwrite persisted settings in `localStorage`.
+
+### 2. Environment Variables
+- `VITE_ENABLE_DEBUG`:
+  - In production: absent / `false`.
+  - In development (`.env.development` only): set to `true` to enable scenario injection and debug screen navigation.
+
+
+

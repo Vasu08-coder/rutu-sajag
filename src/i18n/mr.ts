@@ -104,6 +104,19 @@ export const mr = {
   fisher_neutral_disclaimer: "आमच्या डेटामध्ये कोणताही इशारा आढळलेला नाही. समुद्रात जाण्यापूर्वी नेहमी अधिकृत मच्छीमार इशारे (IMD / INCOIS / मत्स्यव्यवसाय विभाग) आणि स्थानिक बंदर सूचना नक्की तपासा.", // NEEDS NATIVE REVIEW
   monsoon_fishing_ban_active: "महाराष्ट्र शासनाची पावसाळी मासेमारी बंदी (१ जून ते ३१ जुलै) लागू आहे. यांत्रिक नौकांनी समुद्रात जाऊ नये.", // NEEDS NATIVE REVIEW
   coast_guard_sar_helpline: "तटरक्षक दल सागरी आणीबाणी मदत (SAR): १५५४", // NEEDS NATIVE REVIEW
+  // Livestock Species Selection v2
+  species_onb_title: "आपण कोणती जनावरे पाळता?", // NEEDS NATIVE REVIEW
+  species_breed_title: "जात निवडा", // NEEDS NATIVE REVIEW
+  breed_indigenous: "देशी", // NEEDS NATIVE REVIEW
+  breed_crossbred: "संकरित", // NEEDS NATIVE REVIEW
+  breed_dont_know: "माहीत नाही", // NEEDS NATIVE REVIEW
+  species_card_section_title: "आपली जनावरे", // NEEDS NATIVE REVIEW
+  species_general_care_title: "सामान्य काळजीचे उपाय", // NEEDS NATIVE REVIEW
+  species_no_verified_limits: "या प्राण्यासाठी अद्याप प्रमाणित हवामान मर्यादा निश्चित नाहीत.", // NEEDS NATIVE REVIEW
+  species_vet_advice: "अधिक माहितीसाठी आपल्या पशुवैद्यकाचा सल्ला घ्या.", // NEEDS NATIVE REVIEW
+  species_no_alert_standby: "आपल्या परिसरात हवामान इशारा सक्रिय झाल्यावर येथे जनावरांच्या काळजीचे उपाय दिसतील.", // NEEDS NATIVE REVIEW
+  profile_animals_row: "जनावरे", // NEEDS NATIVE REVIEW
+  profile_animals_edit: "बदला", // NEEDS NATIVE REVIEW
 } as const;
 
 export interface Lang {

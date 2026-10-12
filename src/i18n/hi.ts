@@ -106,4 +106,17 @@ export const hi: Lang = {
   fisher_neutral_disclaimer: "हमारे डेटा में कोई चेतावनी नहीं मिली है। समुद्र में जाने से पहले हमेशा आधिकारिक मछुआरा चेतावनियों (IMD / INCOIS / मत्स्य विभाग) और स्थानीय बंदरगाह निर्देशों की पुष्टि करें।", // NEEDS NATIVE REVIEW
   monsoon_fishing_ban_active: "महाराष्ट्र सरकार की मानसूनी मत्स्य पालन रोक (1 जून से 31 जुलाई) लागू है। यांत्रिक नावों से समुद्र में न जाएँ।", // NEEDS NATIVE REVIEW
   coast_guard_sar_helpline: "तटरक्षक खोज व बचाव (SAR) हेल्पलाइन: 1554", // NEEDS NATIVE REVIEW
+  // Livestock Species Selection v2
+  species_onb_title: "आप कौन से पशु पालते हैं?", // NEEDS NATIVE REVIEW
+  species_breed_title: "नस्ल चुनें", // NEEDS NATIVE REVIEW
+  breed_indigenous: "देसी", // NEEDS NATIVE REVIEW
+  breed_crossbred: "संकर", // NEEDS NATIVE REVIEW
+  breed_dont_know: "पता नहीं", // NEEDS NATIVE REVIEW
+  species_card_section_title: "आपके पशु", // NEEDS NATIVE REVIEW
+  species_general_care_title: "सामान्य देखभाल के उपाय", // NEEDS NATIVE REVIEW
+  species_no_verified_limits: "इस पशु के लिए अभी तक प्रमाणित मौसम सीमाएँ निर्धारित नहीं हैं।", // NEEDS NATIVE REVIEW
+  species_vet_advice: "अधिक जानकारी व परामर्श के लिए अपने पशु चिकित्सक से संपर्क करें।", // NEEDS NATIVE REVIEW
+  species_no_alert_standby: "आपके क्षेत्र में मौसम चेतावनी सक्रिय होने पर यहाँ पशु देखभाल के उपाय दिखाई देंगे।", // NEEDS NATIVE REVIEW
+  profile_animals_row: "पशु", // NEEDS NATIVE REVIEW
+  profile_animals_edit: "बदलें", // NEEDS NATIVE REVIEW
 } as const;

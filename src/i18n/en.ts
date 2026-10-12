@@ -106,4 +106,17 @@ export const en: Lang = {
   fisher_neutral_disclaimer: "No warning found in our data. Always check official fishermen warnings (IMD / INCOIS / Fisheries Department) and port instructions before going to sea.",
   monsoon_fishing_ban_active: "Maharashtra Government Monsoon Fishing Ban (June 1 to July 31) is active. Mechanized fishing prohibited.",
   coast_guard_sar_helpline: "Coast Guard Search & Rescue (SAR) Maritime Emergency: 1554",
+  // Livestock Species Selection v2
+  species_onb_title: "Which animals do you keep?",
+  species_breed_title: "Select breed",
+  breed_indigenous: "Indigenous",
+  breed_crossbred: "Crossbred",
+  breed_dont_know: "Don't know",
+  species_card_section_title: "Your animals",
+  species_general_care_title: "General care tips",
+  species_no_verified_limits: "No verified heat limits for this animal yet.",
+  species_vet_advice: "Ask your veterinarian for advice.",
+  species_no_alert_standby: "General care tips will appear here when a weather alert is active for your area.",
+  profile_animals_row: "Animals",
+  profile_animals_edit: "Edit",
 } as const;

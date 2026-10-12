@@ -155,3 +155,69 @@ Each role includes across all 13 hazards (heat_wave, hot_day, hot_night, heavy_r
 | **mr** | Evening Commute Alert Title | `संध्याकाळी घरी परतताना पावसाचा अंदाज` | Scoped travel alert for Role 4 |
 | **hi** | Evening Commute Alert Title | `शाम को घर लौटते समय बारिश का अनुमान` | Scoped travel alert for Role 4 |
 
+---
+
+## 5. Livestock Species Selection (v2) Strings (`src/i18n/{mr,hi}.ts`, `src/config/speciesCatalog.ts`, `src/content/advisoryGeneral.ts`)
+
+### A. Onboarding, Profile & Neutral Species Card UI
+
+| Language | Key | String | Context / Notes |
+| :--- | :--- | :--- | :--- |
+| **mr** | `species_onb_title` | `आपण कोणती जनावरे पाळता?` | Onboarding species selector title |
+| **hi** | `species_onb_title` | `आप कौन से पशु पालते हैं?` | Onboarding species selector title |
+| **mr** | `species_breed_title` | `जात निवडा` | Breed selector header |
+| **hi** | `species_breed_title` | `नस्ल चुनें` | Breed selector header |
+| **mr** | `breed_indigenous` | `देशी` | Indigenous breed option |
+| **hi** | `breed_indigenous` | `देसी` | Indigenous breed option |
+| **mr** | `breed_crossbred` | `संकरित` | Crossbred / exotic breed option |
+| **hi** | `breed_crossbred` | `संकर` | Crossbred / exotic breed option |
+| **mr** | `breed_dont_know` | `माहीत नाही` | Don't know option (maps safely to crossbred) |
+| **hi** | `breed_dont_know` | `पता नहीं` | Don't know option (maps safely to crossbred) |
+| **mr** | `species_card_section_title` | `आपली जनावरे` | Home view neutral animal card section header |
+| **hi** | `species_card_section_title` | `आपके पशु` | Home view neutral animal card section header |
+| **mr** | `species_general_care_title` | `सामान्य काळजीचे उपाय` | Neutral advisory card subtitle |
+| **hi** | `species_general_care_title` | `सामान्य देखभाल के उपाय` | Neutral advisory card subtitle |
+| **mr** | `species_no_verified_limits` | `या प्राण्यासाठी अद्याप प्रमाणित हवामान मर्यादा निश्चित नाहीत.` | Disclaimer: unverified scientific limits |
+| **hi** | `species_no_verified_limits` | `इस पशु के लिए अभी तक प्रमाणित मौसम सीमाएँ निर्धारित नहीं हैं।` | Disclaimer: unverified scientific limits |
+| **mr** | `species_vet_advice` | `अधिक माहितीसाठी आपल्या पशुवैद्यकाचा सल्ला घ्या.` | Referral to veterinarian |
+| **hi** | `species_vet_advice` | `अधिक जानकारी व परामर्श के लिए अपने पशु चिकित्सक से संपर्क करें।` | Referral to veterinarian |
+| **mr** | `species_no_alert_standby` | `आपल्या परिसरात हवामान इशारा सक्रिय झाल्यावर येथे जनावरांच्या काळजीचे उपाय दिसतील.` | Standby explanation on calm days |
+| **hi** | `species_no_alert_standby` | `आपके क्षेत्र में मौसम चेतावनी सक्रिय होने पर यहाँ पशु देखभाल के उपाय दिखाई देंगे।` | Standby explanation on calm days |
+| **mr** | `profile_animals_row` | `जनावरे` | Profile screen expandable row label |
+| **hi** | `profile_animals_row` | `पशु` | Profile screen expandable row label |
+| **mr** | `profile_animals_edit` | `बदला` | Profile screen edit toggle button |
+| **hi** | `profile_animals_edit` | `बदलें` | Profile screen edit toggle button |
+
+### B. Species Catalog Labels (`src/config/speciesCatalog.ts`)
+
+| Species ID | Marathi Label | Hindi Label | English Label | Notes |
+| :--- | :--- | :--- | :--- | :--- |
+| `cow` | `गाय` | `गाय` | `Cow` | Dairy cattle (has breed follow-up) |
+| `bullock` | `बैल` | `बैल` | `Bullock/Ox` | Working ox (has breed follow-up) |
+| `buffalo` | `म्हैस` | `भैंस` | `Buffalo` | Water buffalo |
+| `goat` | `शेळी` | `बकरी` | `Goat` | Small ruminant |
+| `sheep` | `मेंढी` | `भेड़` | `Sheep` | Small ruminant |
+| `poultry` | `कोंबडी` | `मुर्गी` | `Poultry` | Backyard & farm poultry |
+| `pig` | `डुक्कर` | `सुअर` | `Pig` | Rule ID: null (advisory-only) |
+| `equine` | `घोडा/गाढव/खेचर` | `घोड़ा/गधा/खच्चर` | `Horse/Donkey/Mule` | Rule ID: null (advisory-only) |
+| `other` | `इतर` | `अन्य` | `Other` | Rule ID: null (advisory-only) |
+
+### C. General Livestock Advisory Draft Tips (`src/content/advisoryGeneral.ts`)
+
+*(Draft content: gated behind `VITE_INCLUDE_DRAFT_CONTENT=true` or dev mode; `needsVetReview: true`)*
+
+- **Heat Tips**:
+  - `heat_shade`: mr: `जनावरांना सावलीत ठेवा आणि थेट उन्हापासून वाचवा.` | hi: `पशुओं को छायादार स्थान पर रखें और सीधी धूप से बचाएं।`
+  - `heat_water`: mr: `स्वच्छ व थंड पिण्याचे पाणी सतत उपलब्ध ठेवा.` | hi: `साफ और ठंडा पीने का पानी हमेशा उपलब्ध रखें।`
+  - `heat_ventilation`: mr: `गोठ्यात हवा खेळती राहू द्या.` | hi: `बाड़े में हवा का अच्छा वेंटिलेशन बनाए रखें।`
+  - `heat_midday_movement`: mr: `दुपारच्या अत्यंत कडक उन्हात जनावरांची ने-आण किंवा कामे टाळा.` | hi: `दोपहर की तेज धूप में जानवरों को चलाने या काम कराने से बचें।`
+  - `heat_panting_watch`: mr: `तीव्र धाप लागणे, लाळ गळणे किंवा अशक्तपणा यावर बारीक लक्ष ठेवा.` | hi: `तेज हांफने, लार गिरने या कमजोरी के लक्षणों पर नजर रखें।`
+  - `heat_vet_call`: mr: `जनावर खाली बसल्यास किंवा बेशुद्ध पडल्यास ताबडतोब पशुवैद्यकाला बोलवा.` | hi: `यदि पशु गिर पड़े या अत्यधिक सुस्त हो, तो तुरंत पशु चिकित्सक से संपर्क करें।`
+- **Cold Wave Tips**:
+  - `cold_shelter`: mr: `जनावरांना उबदार व कोरड्या निवाऱ्यात ठेवा.` | hi: `पशुओं को गर्म और सूखे आश्रय में रखें।`
+  - `cold_draughts`: mr: `थंड वाऱ्याची थेट झुळूक गोठ्यात येणार नाही याची काळजी घ्या.` | hi: `बाड़े में ठंडी सीधी हवा के झोंकों से बचाव करें।`
+  - `cold_bedding`: mr: `जमिनीवर कोरडे गवत किंवा पोत्यांचे आच्छादन (बेडिंग) घाला.` | hi: `फर्श पर सूखी घास या बोरी का सूखा बिछावन बिछाएं।`
+  - `cold_water`: mr: `जनावरांना कोमट किंवा सामान्य तापमानाचे स्वच्छ पाणी द्या.` | hi: `पशुओं को सामान्य या हल्का गुनगुना साफ पानी दें।`
+  - `cold_vet_call`: mr: `जनावर थरथर कापत असल्यास किंवा सुस्त झाल्यास पशुवैद्यकाचा सल्ला घ्या.` | hi: `यदि पशु कांप रहा हो या बहुत कमजोर दिखे तो पशु चिकित्सक से संपर्क करें।`
+
+

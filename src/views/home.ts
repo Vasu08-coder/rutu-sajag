@@ -1,8 +1,11 @@
 import { ic } from '../data/icons';
-import { S } from '../state/store';
+import { S, FEATURE_SPECIES_V2, INCLUDE_DRAFT_CONTENT } from '../state/store';
 import { t, topbar, N, get5DayLabels } from './shared';
 import { computedView } from '../state/store';
 import { ALL_HAZARD_GUIDANCE } from '../data/allHazardsGuide';
+import { SPECIES_CATALOG, getSpeciesRule } from '../config/speciesCatalog';
+import { evaluateSpecies } from '../config/speciesRules';
+import { getLivestockGeneralTips } from '../content/advisoryGeneral';
 
 export function renderHome(): string {
   const x = t() as any;
@@ -133,6 +136,68 @@ export function renderHome(): string {
         <button style="background:var(--g2);color:var(--g)" onclick="window.__app.openHealthCentres()">${ic('pin', 20)} ${x.hc}</button>
       </div>`;
 
+  // Role 3 Livestock Species Cards Section (v2)
+  let livestockCardsHtml = '';
+  if (FEATURE_SPECIES_V2 && S.role === 3) {
+    const isAlertActive = risk.levelIndex >= 3 || S.alerts.some(a => a.source === 'sachet');
+    const hazardTypeForTips: 'heat' | 'cold' = risk.hazard === 'cold_wave' ? 'cold' : 'heat';
+    const draftTips = getLivestockGeneralTips(hazardTypeForTips, S.lang as 'mr' | 'hi' | 'en', INCLUDE_DRAFT_CONTENT);
+
+    if (S.livestockProfile.length > 0) {
+      const cards = S.livestockProfile.map(item => {
+        const catalogEntry = SPECIES_CATALOG.find(c => c.uiSpeciesId === item.uiSpeciesId);
+        const speciesName = catalogEntry ? (catalogEntry.labels[S.lang] || catalogEntry.labels.mr) : item.uiSpeciesId;
+        const rule = catalogEntry ? getSpeciesRule(catalogEntry.ruleId) : null;
+        const evalResult = evaluateSpecies(rule, w, item.breedType);
+
+        if (evalResult.status === 'not_evaluated') {
+          // NEUTRAL grey look from existing tokens (--line / --mut / --cream / --w)
+          // NEVER green/amber/red or risk colours.
+          let bodyHtml = '';
+          if (isAlertActive) {
+            const tipsList = draftTips.length > 0
+              ? `<ul style="margin:8px 0 6px 18px;padding:0;font-size:13.5px;color:var(--ink);line-height:1.5">
+                  ${draftTips.map(t => `<li style="margin-bottom:4px">${t}</li>`).join('')}
+                </ul>`
+              : '';
+            bodyHtml = `
+              <div style="font-weight:700;font-size:14px;color:var(--ink);margin-bottom:4px">${x.species_general_care_title || 'General care tips'}</div>
+              <div style="font-size:13px;color:var(--mut);line-height:1.4">${x.species_no_verified_limits || 'No verified heat limits for this animal yet.'} ${x.species_vet_advice || 'Ask your veterinarian for advice.'}</div>
+              ${tipsList}`;
+          } else {
+            bodyHtml = `
+              <div style="font-size:13px;color:var(--mut);line-height:1.4">
+                ${x.species_no_alert_standby || 'General care tips will appear here when a weather alert is active for your area.'}
+              </div>`;
+          }
+
+          return `
+            <div class="card" style="background:var(--w);border:1.5px solid var(--line);flex-direction:column;align-items:flex-start;padding:14px;margin-bottom:10px">
+              <div style="display:flex;align-items:center;gap:10px;width:100%;margin-bottom:8px">
+                <span class="ib" style="width:38px;height:38px;background:var(--cream);color:var(--mut);border:1px solid var(--line)">${ic('cow', 22)}</span>
+                <b style="font-size:16px;color:var(--ink)">${speciesName}</b>
+              </div>
+              <div style="width:100%">${bodyHtml}</div>
+            </div>`;
+        } else {
+          // Evaluated path (only when approved rules exist in future): route to existing risk UI
+          const riskBg = evalResult.level === 'red' ? 'var(--red)' : evalResult.level === 'orange' || evalResult.level === 'yellow' ? 'var(--amb)' : 'var(--g)';
+          return `
+            <div class="card" style="border-left:4px solid ${riskBg};flex-direction:column;align-items:flex-start;padding:14px;margin-bottom:10px">
+              <div style="display:flex;align-items:center;gap:10px;width:100%">
+                <span class="ib" style="width:38px;height:38px">${ic('cow', 22)}</span>
+                <b style="font-size:16px;color:var(--ink)">${speciesName}</b>
+              </div>
+            </div>`;
+        }
+      }).join('');
+
+      livestockCardsHtml = `
+        <h3 id="animals-section" style="margin-top:22px;margin-bottom:10px">${x.species_card_section_title || 'Your animals'}</h3>
+        ${cards}`;
+    }
+  }
+
   return topbar() +
     hazardCardHtml +
     freshnessHtml +
@@ -147,6 +212,7 @@ export function renderHome(): string {
       <span class="ib" style="width:46px;height:46px;background:#e3eeea;color:#1f4f4b">${ic('shield', 26)}</span>
       ${g.c2}
     </div>
+    ${livestockCardsHtml}
     ${emergencyButtonsHtml}
     <div class="sms">${ic('msg', 22)} ${x.sms}</div>`;
 }
