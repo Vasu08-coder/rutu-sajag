@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="mr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ऋतु सजग · Rutu Sajag</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--g:#1f4f4b;--g2:#e6efec;--cream:#faf5ec;--red:#c1452d;--dred:#7a1f15;--amb:#e0a526;--ink:#231f1a;--mut:#7b7367;--line:#e8dfcc;--bg:#e9e3d6;--w:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1916}}
+:root[data-theme="dark"]{--bg:#1b1916}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:var(--bg);font-family:'Noto Sans Devanagari','Nirmala UI',Mukta,sans-serif;color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+.dev{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;padding:6px}
+.dev button{font-family:inherit;font-weight:600;font-size:12px;border:1px solid #b9ae98;background:transparent;color:var(--mut);padding:5px 10px;border-radius:99px;cursor:pointer}
+.dev button.on{background:var(--g);color:#fff;border-color:var(--g)}
+@media(max-width:480px){.dev{display:none}}
+.ph{width:min(100%,392px);height:min(100%,800px);background:var(--cream);border-radius:28px;overflow:hidden;display:flex;flex-direction:column;position:relative;box-shadow:0 2px 0 #00000014,0 12px 30px #0003}
+@media(max-width:480px){.ph{border-radius:0;height:100%;width:100%}}
+.scr{flex:1;overflow-y:auto;padding:0 18px 16px}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--amb);outline-offset:2px}
+.svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+/* onboarding */
+.hd{background:var(--g);color:#fff;padding:26px 20px 18px;margin:0 -18px}
+.brand{display:flex;align-items:center;gap:12px;font-size:30px;font-weight:800}
+.hd p{font-size:14px;color:#cfe0dc;margin:6px 0 14px}
+.chips{display:flex;gap:8px}
+.chips button{border:0;border-radius:99px;padding:9px 16px;font-size:15px;font-weight:700;background:#ffffff26;color:#fff}
+.chips button.on{background:var(--cream);color:var(--g)}
+h2{font-size:23px;font-weight:800;margin:20px 0 2px}
+.sub{color:var(--mut);font-size:14px;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.role{background:var(--w);border:2px solid var(--line);border-radius:20px;padding:16px 8px 14px;display:flex;flex-direction:column;align-items:center;gap:10px;font-size:17px;font-weight:700;color:var(--ink);position:relative}
+.role .ib{width:58px;height:58px;border-radius:16px;display:grid;place-items:center}
+.role.on{border-color:var(--g);background:#f3f8f6}
+.role.on::after{content:"✓";position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;background:var(--g);color:#fff;font-size:13px;display:grid;place-items:center}
+.cta{width:100%;border:0;background:var(--g);color:#fff;font-size:18px;font-weight:800;padding:16px;border-radius:16px;margin-top:16px}
+.note{display:flex;gap:6px;justify-content:center;align-items:center;color:var(--mut);font-size:13px;margin-top:12px}
+/* top bar */
+.top{display:flex;justify-content:space-between;align-items:center;padding:16px 0 10px}
+.loc{font-size:13px;color:var(--mut);display:flex;gap:4px;align-items:center}
+.top h1{font-size:22px;font-weight:800}
+.bell{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line);background:var(--w);display:grid;place-items:center;position:relative;color:var(--g)}
+.bell i{position:absolute;top:-3px;right:-3px;background:var(--red);color:#fff;font-family:inherit;font-weight:700;font-size:11px;font-style:normal;min-width:20px;height:20px;border-radius:10px;display:grid;place-items:center;border:2px solid var(--cream)}
+.dng{background:var(--red);color:#fff;border-radius:24px;padding:20px;margin-top:4px}
+.dng .t{display:flex;gap:8px;align-items:center;font-weight:700;font-size:15px}
+.dng .big{font-size:34px;font-weight:800;margin:10px 0 4px;line-height:1.2}
+.dng p{font-size:16px;line-height:1.5}
+.dng .row{display:flex;gap:10px;margin-top:14px}
+.dng .row button{flex:1;border:0;border-radius:14px;padding:13px 6px;font-size:15px;font-weight:800;background:#fff;color:var(--red)}
+.dng .row button.v{flex:0 0 52px;background:#ffffff2e;color:#fff;display:grid;place-items:center}
+.st{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.st div{background:var(--w);border:1.5px solid var(--line);border-radius:16px;padding:10px 4px;text-align:center;font-size:13px;color:var(--mut)}
+.st b{display:block;font-size:19px;color:var(--ink);margin-top:2px}
+h3{font-size:16px;font-weight:800;margin:20px 0 10px}
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+.d{flex:1 0 62px;background:var(--w);border-radius:16px;padding:10px 4px;text-align:center;font-size:13px;color:var(--mut);border:2px solid transparent}
+.d.on{border-color:var(--red)}
+.d b{display:block;font-size:17px;color:var(--ink);margin-top:6px}.d.on b{color:var(--red)}
+.d .dot{display:block;margin:6px auto 0;width:12px;height:12px;border-radius:50%;border:3px solid var(--amb)}
+.card{background:var(--w);border:1.5px solid var(--line);border-radius:16px;padding:12px;display:flex;gap:12px;align-items:center;margin-bottom:10px;font-size:16px;font-weight:500;line-height:1.4;width:100%;text-align:left;color:var(--ink)}
+.card .ib{flex:0 0 46px;height:46px;border-radius:12px;display:grid;place-items:center}
+.sos{display:flex;gap:10px}
+.sos button{flex:1;display:flex;gap:8px;align-items:center;justify-content:center;border:0;border-radius:14px;padding:13px 6px;font-size:15px;font-weight:700}
+.sms{display:flex;gap:10px;align-items:center;background:var(--g2);border-radius:14px;padding:11px 12px;font-size:13.5px;color:var(--g);margin-top:12px;font-weight:600}
+/* tabs */
+.tabs{display:flex;background:var(--w);border-top:1.5px solid var(--line);padding:8px 6px 10px}
+.tabs button{flex:1;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12.5px;font-weight:600;color:var(--mut);padding:4px 0}
+.tabs button.on{color:var(--g);font-weight:800}
+/* notifications */
+.nt{border-left:6px solid;padding:14px;border-radius:6px 16px 16px 6px;background:var(--w);margin-bottom:10px;display:block;width:100%;text-align:left;border-top:0;border-right:0;border-bottom:0;color:var(--ink)}
+.nt b{font-size:16px;display:block}.nt span{font-size:14px;color:var(--mut);line-height:1.45;display:block;margin-top:2px}.nt em{font-style:normal;font-size:12.5px;color:var(--mut);display:block;margin-top:6px}
+/* live alert */
+.live{background:var(--dred);color:#fff;margin:0 -18px;padding:0 20px;flex:1;display:flex;flex-direction:column;min-height:100%}
+.live .bar{display:flex;justify-content:space-between;align-items:center;padding:18px 0;font-size:13px}
+.pill{display:flex;gap:8px;align-items:center;background:#ffffff26;padding:7px 12px;border-radius:99px;font-weight:700}
+.pill s{width:9px;height:9px;border-radius:50%;background:#ff8a72;animation:bl 1.2s infinite}
+@keyframes bl{50%{opacity:.25}}
+@media(prefers-reduced-motion:reduce){.pill s{animation:none}}
+.live .mid{text-align:center;padding:12px 0}
+.live .ring{width:86px;height:86px;border-radius:50%;background:#ffffff26;display:grid;place-items:center;margin:0 auto 14px}
+.live h1{font-size:34px;line-height:1.25;font-weight:800;margin:6px 0 10px}
+.live .mid p{font-size:16.5px;line-height:1.55}
+.tm{display:inline-block;margin-top:10px;background:#0003;border-radius:12px;padding:6px 16px;font-size:26px;font-weight:800;letter-spacing:1px}
+.sheet{background:#5a140d;margin:auto -20px 0;padding:18px 20px 20px;border-radius:26px 26px 0 0}
+.sheet h4{font-size:15px;color:#f3c9c1;margin-bottom:10px}
+.sheet li{list-style:none;display:flex;gap:12px;align-items:center;font-size:16px;margin-bottom:10px}
+.sheet li b{flex:0 0 28px;height:28px;border-radius:50%;background:#fff;color:var(--dred);display:grid;place-items:center;font-size:15px}
+.safe{width:100%;border:0;background:#fff;color:var(--dred);font-size:18px;font-weight:800;padding:15px;border-radius:16px;margin-top:6px}
+.safe.ok{background:#2d7a4f;color:#fff}
+.fam{text-align:center;font-size:13px;color:#e8bdb5;margin-top:10px}
+/* guide */
+.back{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:var(--w);display:grid;place-items:center;color:var(--ink)}
+.gt{display:flex;gap:12px;align-items:center;padding:16px 0}.gt h1{font-size:21px;font-weight:800}
+.step{background:var(--w);border-radius:6px 16px 16px 6px;border-left:6px solid;padding:14px;margin-bottom:10px;display:flex;gap:12px;align-items:center}
+.step b{font-size:17px;display:block}.step span{font-size:14.5px;color:var(--mut)}
+.warn{background:#fdefd9;border-radius:18px;padding:16px;font-size:16px;line-height:1.55}
+.warn button{width:100%;margin-top:12px;border:0;background:var(--ink);color:#fff;font-size:16px;font-weight:800;padding:14px;border-radius:14px}
+.ai{font-size:13px;color:var(--mut);margin:-6px 0 12px}
+
+/* functional states only */
+.cta:disabled{opacity:.7;cursor:default}
+.card:disabled{opacity:.7}
+</style></head>
+<body>
+<div class="dev" id="dev"></div>
+<div class="ph"><div class="scr" id="scr"></div><nav class="tabs" id="tabs"></nav></div>
+<script>
+
+/* =====================================================================
+   ऋतु सजग · Rutu Sajag — prototype logic
+   Architecture:  LOCATION → WEATHER DATA → SAFETY ENGINE → GUIDANCE → render()
+   ===================================================================== */
+
+/* ---------- UI TEXT (Marathi / Hindi / English) ---------- */
+const T={
+mr:{q:"तुम्ही काय करता?",qs:"तुमचा वर्ग निवडा — टाइप करण्याची गरज नाही",r:["शेतमजूर","शेतकरी","घरगुती","पशुपालक"],go:"पुढे जा",loc:"तुमचे गाव शोधण्यासाठी लोकेशन वापरेल",hi:"नमस्कार, ",tag:"तातडीचा इशारा",now:"आत्ता {t}°C आहे",full:"पूर्ण सूचना पहा",hum:"आर्द्रता",wnd:"वारा",rn:"पाऊस",n5:"पुढील ५ दिवस",dy:["आज","उद्या","बुध","गुरु","शुक्र"],care:"तुमच्यासाठी काळजी",hc:"आरोग्य केंद्र",sms:"इंटरनेट नसले तरी इशारा SMS ने येईल",tb:["होम","इशारे","मार्गदर्शन","प्रोफाईल"],nt:"सूचना",n:[["विजांचा गंभीर इशारा","पुढील ४५ मिनिटे मोकळ्या शेतात थांबू नका","आत्ता"],["तातडीचा उष्णतेचा इशारा","४५°C — दुपारी १२ ते ४ उन्हात काम टाळा","१० मिनिटांपूर्वी"],["उद्या हलका पाऊस","बुधवारी तापमान ३९° पर्यंत उतरेल","आज सकाळी"]],lt:"विजांचा गंभीर इशारा",lh:"तीव्र विजांचा<br>धोका — आत्ता",lb:"पुढील ४५ मिनिटे मोकळ्या शेतात, झाडाखाली किंवा पाण्याजवळ थांबू नका. लगेच पक्क्या घरात किंवा निवाऱ्यात जा.",lw:"आत्ता काय करावे",ls:["जनावरे लगेच झाडाखालून सुरक्षित गोठ्यात न्या","धातूची अवजारे व मोबाईल बाजूला ठेवा","नदी व ओढ्याच्या काठापासून दूर रहा"],sf:"सुरक्षित पोहोचलो, कळवा",sd:"सुरक्षित नोंदवले ✓",fm:"प्रत्यक्ष सेवेत कुटुंबाला तुमचे ठिकाण कळेल",fm2:"नमुना: कुटुंबाला प्रत्यक्ष संदेश पाठवलेला नाही",gt:"उष्णतेपासून काळजी",gs:"आत्ता {t}°C · {r}साठी",ai:"तुमच्या कामानुसार तयार केलेल्या सूचना",gn:"लगेच करा",sy:"लक्षणे दिसल्यास",sb:"चक्कर, उलटी किंवा जास्त घाम आल्यास — लगेच सावलीत झोपा, पायाखाली उशी ठेवा आणि जवळच्या आरोग्य केंद्राला कळवा",hcs:"जवळचे आरोग्य केंद्र दाखवा",pf:["गाव","वर्ग","भाषा","कुटुंबातील सदस्य"],pv:["","","","आई, भाऊ (२ जण)"],
+ nl:"ठिकाण निवडलेले नाही",lq:"तुमचे गाव कुठे आहे?",lqs:"लोकेशन वापरा किंवा यादीतून गाव निवडा",lu:"माझे लोकेशन वापरा",ld:"लोकेशन शोधत आहे…",lhint:"ब्राउझरने परवानगी विचारल्यास “परवानगी द्या” निवडा",lc:"हेच माझे गाव",lm:"किंवा गाव निवडा",
+ e_denied:"लोकेशनची परवानगी मिळाली नाही. खालील यादीतून तुमचे गाव निवडा.",e_unavail:"लोकेशन मिळू शकले नाही (GPS बंद आहे किंवा सिग्नल नाही). खालील यादीतून गाव निवडा.",e_unsup:"या ब्राउझरमध्ये लोकेशन सुविधा नाही. खालील यादीतून गाव निवडा.",e_timeout:"लोकेशन शोधायला खूप वेळ लागला. पुन्हा प्रयत्न करा किंवा खालील यादीतून गाव निवडा.",e_name:"लोकेशन मिळाले, पण गावाचे नाव ओळखता आले नाही (इंटरनेट नसू शकते). खालील यादीतून गाव निवडा."},
+hi:{q:"आप क्या करते हैं?",qs:"अपनी श्रेणी चुनें — टाइप करने की ज़रूरत नहीं",r:["खेतिहर मज़दूर","किसान","घरेलू","पशुपालक"],go:"आगे बढ़ें",loc:"आपका गाँव खोजने के लिए लोकेशन का उपयोग होगा",hi:"नमस्कार, ",tag:"आपातकालीन चेतावनी",now:"अभी {t}°C है",full:"पूरी सूचना देखें",hum:"नमी",wnd:"हवा",rn:"बारिश",n5:"अगले 5 दिन",dy:["आज","कल","बुध","गुरु","शुक्र"],care:"आपके लिए सावधानी",hc:"स्वास्थ्य केंद्र",sms:"इंटरनेट न हो तब भी चेतावनी SMS से आएगी",tb:["होम","चेतावनी","मार्गदर्शन","प्रोफ़ाइल"],nt:"सूचनाएँ",n:[["बिजली गिरने की गंभीर चेतावनी","अगले 45 मिनट खुले खेत में न रुकें","अभी"],["लू की आपातकालीन चेतावनी","45°C — दोपहर 12 से 4 बजे धूप में काम न करें","10 मिनट पहले"],["कल हल्की बारिश","बुधवार को तापमान 39° तक गिरेगा","आज सुबह"]],lt:"बिजली की गंभीर चेतावनी",lh:"तेज़ बिजली का<br>खतरा — अभी",lb:"अगले 45 मिनट खुले खेत में, पेड़ के नीचे या पानी के पास न रुकें। तुरंत पक्के घर या आश्रय में जाएँ।",lw:"अभी क्या करें",ls:["पशुओं को तुरंत पेड़ के नीचे से सुरक्षित बाड़े में ले जाएँ","धातु के औज़ार और मोबाइल अलग रख दें","नदी और नाले के किनारे से दूर रहें"],sf:"सुरक्षित पहुँच गया, बताएँ",sd:"सुरक्षित दर्ज किया ✓",fm:"असली सेवा में परिवार को आपकी जगह पता चलेगी",fm2:"नमूना: परिवार को असली संदेश नहीं भेजा गया",gt:"गर्मी से बचाव",gs:"अभी {t}°C · {r} के लिए",ai:"आपके काम के अनुसार तैयार सुझाव",gn:"तुरंत करें",sy:"लक्षण दिखें तो",sb:"चक्कर, उल्टी या ज़्यादा पसीना आए तो तुरंत छाया में लेटें, पैरों के नीचे तकिया रखें और नज़दीकी स्वास्थ्य केंद्र को बताएँ",hcs:"नज़दीकी स्वास्थ्य केंद्र दिखाएँ",pf:["गाँव","श्रेणी","भाषा","परिवार के सदस्य"],pv:["","","","माँ, भाई (2)"],
+ nl:"स्थान चुना नहीं गया",lq:"आपका गाँव कहाँ है?",lqs:"लोकेशन का उपयोग करें या सूची से गाँव चुनें",lu:"मेरा लोकेशन उपयोग करें",ld:"लोकेशन खोज रहे हैं…",lhint:"ब्राउज़र अनुमति माँगे तो “अनुमति दें” चुनें",lc:"यही मेरा गाँव है",lm:"या गाँव चुनें",
+ e_denied:"लोकेशन की अनुमति नहीं मिली। नीचे सूची से अपना गाँव चुनें।",e_unavail:"लोकेशन नहीं मिल सका (GPS बंद है या सिग्नल नहीं है)। नीचे सूची से गाँव चुनें।",e_unsup:"इस ब्राउज़र में लोकेशन की सुविधा नहीं है। नीचे सूची से गाँव चुनें।",e_timeout:"लोकेशन खोजने में बहुत समय लगा। दोबारा कोशिश करें या नीचे सूची से गाँव चुनें।",e_name:"लोकेशन मिला, पर गाँव का नाम पहचाना नहीं जा सका (इंटरनेट न हो सकता है)। नीचे सूची से गाँव चुनें।"},
+en:{q:"What do you do?",qs:"Pick your group — no typing needed",r:["Field Laborer","Farmer","Household","Animal Husbandry"],go:"Continue",loc:"Uses your location to find your village",hi:"Hello, ",tag:"Heatwave danger",now:"It is {t}°C now",full:"See full advice",hum:"Humidity",wnd:"Wind",rn:"Rain",n5:"Next 5 days",dy:["Today","Tmrw","Wed","Thu","Fri"],care:"Care for you",hc:"Health centre",sms:"Alerts reach you by SMS even without internet",tb:["Home","Alerts","Guide","Profile"],nt:"Notifications",n:[["Severe lightning alert","Do not stay in open fields for 45 minutes","Now"],["Heatwave danger alert","45°C — avoid sun work from 12 to 4 pm","10 min ago"],["Light rain tomorrow","Temperature falls to 39° on Wednesday","This morning"]],lt:"Severe lightning alert",lh:"Heavy lightning<br>danger — now",lb:"For the next 45 minutes do not stay in open fields, under trees or near water. Go to a solid house or shelter at once.",lw:"What to do now",ls:["Move animals out from under trees into a safe shed","Put metal tools and your phone aside","Stay away from rivers and stream banks"],sf:"I reached safety, tell family",sd:"Marked safe ✓",fm:"In the live service your family will see your location",fm2:"Demo: no real message was sent to your family",gt:"Protection from heat",gs:"Now {t}°C · for {r}",ai:"Advice prepared for your work",gn:"Do now",sy:"If you feel unwell",sb:"If you feel dizzy, vomit or sweat heavily — lie down in shade, keep your feet raised on a pillow and tell the nearest health centre",hcs:"Show nearest health centre",pf:["Village","Group","Language","Family members"],pv:["","","","Mother, brother (2)"],
+ nl:"Location not set",lq:"Where is your village?",lqs:"Use your location or pick your village from the list",lu:"Use my location",ld:"Detecting location…",lhint:"If the browser asks for permission, choose “Allow”",lc:"This is my village",lm:"Or pick your village",
+ e_denied:"Location permission was not given. Pick your village from the list below.",e_unavail:"Could not get your location (GPS is off or there is no signal). Pick your village from the list below.",e_unsup:"This browser has no location feature. Pick your village from the list below.",e_timeout:"Finding your location took too long. Try again or pick your village from the list below.",e_name:"Location found, but the village name could not be identified (you may be offline). Pick your village from the list below."}};
+const LN={mr:"मराठी",hi:"हिंदी",en:"English"};
+const VOICE={mr:'mr-IN',hi:'hi-IN',en:'en-IN'};
+
+/* ---------- ROLE-SPECIFIC GUIDANCE (heat hazard) ----------
+   Static, pre-written text. NOT generated by a live AI model.
+   g = [[icon, title, detail], ...]  */
+const GUIDE={
+mr:[
+ {adv:"२ तास काम थांबवा. सावलीत बसा आणि लगेच ताक प्या!",c1:"दुपारी १२ ते ४ उन्हात काम टाळा",c2:"दर अर्ध्या तासाने पाणी किंवा ताक प्या",g:[["clock","२ तास काम थांबवा","दुपारी १२ ते २ वाजेपर्यंत उन्हात थांबू नका"],["home","सावलीत किंवा घरात बसा","झाडाची किंवा शेडची सावली शोधा"],["drop","लगेच ताक किंवा मिठाचे पाणी प्या","दर ३० मिनिटांनी थोडे थोडे पाणी प्या"]]},
+ {adv:"दुपारी शेतीकामे थांबवा. सिंचन सकाळी किंवा संध्याकाळी करा आणि सावलीत विश्रांती घ्या!",c1:"शेतातील कामे सकाळी लवकर किंवा संध्याकाळी करा",c2:"सिंचन सकाळी किंवा संध्याकाळी करा, दुपारी नको",g:[["clock","कामाची वेळ बदला","दुपारी १२ ते ४ शेतात काम टाळा; सकाळी व संध्याकाळी करा"],["drop","सिंचन सकाळी किंवा संध्याकाळी","दुपारी पाणी दिल्यास पिकाला व तुम्हाला त्रास होतो"],["shield","पिकांचे संरक्षण करा","कोवळ्या रोपांवर आच्छादन घाला; विश्रांती सावलीत घ्या"]]},
+ {adv:"वृद्ध आणि मुलांना घरात ठेवा. पिण्याचे पाणी साठवा आणि आणीबाणीची तयारी ठेवा!",c1:"वृद्ध व मुलांना दुपारी १२ ते ४ घरात ठेवा",c2:"पिण्याचे स्वच्छ पाणी भरून ठेवा",g:[["home","वृद्ध आणि मुलांना घरात ठेवा","दुपारी बाहेर पाठवू नका; खिडक्यांना पडदे लावा"],["drop","पिण्याचे पाणी साठवा","थंड, स्वच्छ पाणी भरून ठेवा; मीठ-साखरेचे पाणी घरी ठेवा"],["phone","आणीबाणीची तयारी ठेवा","१०८ क्रमांक व जवळचे आरोग्य केंद्र माहीत ठेवा; मोबाईल चार्ज ठेवा"]]},
+ {adv:"जनावरांना सावलीत ठेवा आणि भरपूर पाणी द्या. दुपारी वाहतूक टाळा!",c1:"जनावरांना दुपारी सावलीत बांधा, गोठ्यात हवा खेळती ठेवा",c2:"जनावरांना दिवसभर स्वच्छ, थंड पाणी द्या",g:[["cow","जनावरांना सावलीत ठेवा","झाडाखाली किंवा गोठ्यात बांधा; उन्हात चरायला नेऊ नका"],["drop","भरपूर पाणी द्या","दिवसातून अनेकदा स्वच्छ, थंड पाणी द्या"],["home","गोठ्यात हवा खेळती ठेवा","दुपारी १२ ते ४ जनावरांची वाहतूक टाळा"]]}],
+hi:[
+ {adv:"2 घंटे काम रोकें। छाया में बैठें और तुरंत छाछ पिएँ!",c1:"दोपहर 12 से 4 बजे धूप में काम न करें",c2:"हर आधे घंटे में पानी या छाछ पिएँ",g:[["clock","2 घंटे काम रोकें","दोपहर 12 से 2 बजे तक धूप में न रहें"],["home","छाया या घर में बैठें","पेड़ या शेड की छाया ढूँढें"],["drop","तुरंत छाछ या नमक-पानी पिएँ","हर 30 मिनट में थोड़ा-थोड़ा पानी पिएँ"]]},
+ {adv:"दोपहर में खेती का काम रोकें। सिंचाई सुबह या शाम को करें और छाया में आराम करें!",c1:"खेत का काम सुबह जल्दी या शाम को करें",c2:"सिंचाई सुबह या शाम को करें, दोपहर में नहीं",g:[["clock","काम का समय बदलें","दोपहर 12 से 4 बजे खेत में काम न करें; सुबह और शाम को करें"],["drop","सिंचाई सुबह या शाम को","दोपहर में पानी देने से फ़सल और आपको नुकसान होता है"],["shield","फ़सल की सुरक्षा करें","छोटे पौधों पर आवरण डालें; आराम छाया में करें"]]},
+ {adv:"बुज़ुर्गों और बच्चों को घर के अंदर रखें। पीने का पानी जमा करें और आपात तैयारी रखें!",c1:"बुज़ुर्गों और बच्चों को दोपहर 12 से 4 बजे घर में रखें",c2:"पीने का साफ़ पानी भरकर रखें",g:[["home","बुज़ुर्गों और बच्चों को घर में रखें","दोपहर में बाहर न भेजें; खिड़कियों पर परदे लगाएँ"],["drop","पीने का पानी जमा करें","ठंडा, साफ़ पानी भरकर रखें; नमक-चीनी का घोल घर में रखें"],["phone","आपात तैयारी रखें","108 नंबर और नज़दीकी स्वास्थ्य केंद्र की जानकारी रखें; मोबाइल चार्ज रखें"]]},
+ {adv:"पशुओं को छाया में रखें और भरपूर पानी दें। दोपहर में ढुलाई न करें!",c1:"पशुओं को दोपहर में छाया में बाँधें, बाड़े में हवा आने दें",c2:"पशुओं को दिन भर साफ़, ठंडा पानी दें",g:[["cow","पशुओं को छाया में रखें","पेड़ के नीचे या बाड़े में बाँधें; धूप में चराने न ले जाएँ"],["drop","भरपूर पानी दें","दिन में कई बार साफ़, ठंडा पानी दें"],["home","बाड़े में हवा आने दें","दोपहर 12 से 4 बजे पशुओं की ढुलाई न करें"]]}],
+en:[
+ {adv:"Stop work for 2 hours. Sit in the shade and drink buttermilk now!",c1:"Avoid working in the sun from 12 to 4 pm",c2:"Drink water or buttermilk every half hour",g:[["clock","Stop work for 2 hours","Do not stay in the sun from 12 to 2 pm"],["home","Sit in shade or indoors","Find shade of a tree or shed"],["drop","Drink buttermilk or salt water","Sip water every 30 minutes"]]},
+ {adv:"Stop field work at midday. Irrigate early morning or evening and rest in the shade!",c1:"Do field work early morning or in the evening",c2:"Irrigate in the morning or evening, not at noon",g:[["clock","Change your work timing","Avoid field work from 12 to 4 pm; work morning and evening"],["drop","Irrigate morning or evening","Midday watering harms the crop and you"],["shield","Protect the crops","Cover young seedlings; take your rest in the shade"]]},
+ {adv:"Keep elderly people and children indoors. Store drinking water and be ready for emergencies!",c1:"Keep elderly people and children indoors from 12 to 4 pm",c2:"Store clean drinking water",g:[["home","Keep elderly and children indoors","Do not send them out at midday; cover windows with curtains"],["drop","Store drinking water","Keep cool, clean water filled; keep salt-sugar water at home"],["phone","Be ready for emergencies","Know the 108 number and nearest health centre; keep phone charged"]]},
+ {adv:"Keep animals in shade and give plenty of water. Avoid transport at midday!",c1:"Tie animals in shade at midday and keep the shed ventilated",c2:"Give animals clean, cool water all day",g:[["cow","Keep animals in shade","Tie them under a tree or in the shed; do not take them out to graze in the sun"],["drop","Give plenty of water","Offer clean, cool water many times a day"],["home","Keep the shed ventilated","Avoid transporting animals from 12 to 4 pm"]]}]
+};
+
+/* ---------- MANUAL LOCATION LIST (works with no GPS / no network) ----------
+   Coordinates are approximate town centres, for later weather lookup.
+   Extend by adding states / districts / places. */
+const GAZ={
+ state:{mr:"महाराष्ट्र",hi:"महाराष्ट्र",en:"Maharashtra"},
+ district:{mr:"यवतमाळ",hi:"यवतमाल",en:"Yavatmal"},
+ places:[
+  {id:'darwha',name:{mr:"दारव्हा",hi:"दारव्हा",en:"Darwha"},lat:20.31,lon:77.77},
+  {id:'yavatmal',name:{mr:"यवतमाळ",hi:"यवतमाल",en:"Yavatmal"},lat:20.39,lon:78.13},
+  {id:'pusad',name:{mr:"पुसद",hi:"पुसद",en:"Pusad"},lat:19.91,lon:77.57},
+  {id:'digras',name:{mr:"दिग्रस",hi:"दिग्रस",en:"Digras"},lat:20.11,lon:77.71},
+  {id:'ner',name:{mr:"नेर",hi:"नेर",en:"Ner"},lat:20.47,lon:77.88},
+  {id:'wani',name:{mr:"वणी",hi:"वणी",en:"Wani"},lat:20.06,lon:78.95}]
+};
+
+/* ---------- APP STATE ---------- */
+const ACTIVITIES=['field_work','irrigation','machinery','travelling','animal_care','at_home'];
+const S={
+ lang:'mr',role:0,screen:'onb',
+ activity:null,            // reserved for the safety engine; no UI yet
+ loc:null,                 // {placeId?|village,taluka,district,state,lat,lon,source:'gps'|'manual'}
+ locReturn:'home',
+ ui:{status:'idle',msg:null,pending:null,reqId:0}, // location step: idle|detecting|detected|error
+ safe:false,alertEnd:null,
+ online:(typeof navigator!=='undefined'&&navigator.onLine!==false)
+};
+let tick=null,lastScr=null;
+const t=()=>T[S.lang],N=s=>S.lang==='en'?String(s):String(s).replace(/\d/g,d=>'०१२३४५६७८९'[d]);
+
+/* ---------- LOCATION SERVICE ---------- */
+// GPS gives ONLY latitude/longitude. Village names come from reverseGeocode().
+function locationService(){
+ return new Promise((resolve,reject)=>{
+  if(!('geolocation' in navigator)){reject({code:'unsupported'});return}
+  try{
+   navigator.geolocation.getCurrentPosition(
+    p=>resolve({lat:p.coords.latitude,lon:p.coords.longitude,accuracy:p.coords.accuracy}),
+    e=>reject({code:e&&e.code===1?'denied':e&&e.code===3?'timeout':'unavailable'}),
+    {enableHighAccuracy:true,timeout:15000,maximumAge:60000});
+  }catch(e){reject({code:'unavailable'})}
+ });
+}
+// Prototype implementation: OpenStreetMap Nominatim (no API key; light demo use only).
+// Replace this ONE function with your production geocoder later.
+// Returns {village,taluka,district,state} or throws.
+async function reverseGeocode(lat,lon,lang){
+ if(!S.online)throw{code:'offline'};
+ const ctl=new AbortController(),to=setTimeout(()=>ctl.abort(),8000);
+ try{
+  const url='https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=14&addressdetails=1'
+   +'&lat='+encodeURIComponent(lat)+'&lon='+encodeURIComponent(lon)+'&accept-language='+encodeURIComponent(lang+',en');
+  const r=await fetch(url,{signal:ctl.signal});
+  if(!r.ok)throw{code:'http'};
+  const a=(await r.json()).address||{};
+  const village=a.village||a.hamlet||a.town||a.suburb||a.neighbourhood||a.city||'';
+  const taluka=a.county||a.city_district||a.subdistrict||'';
+  const district=a.state_district||a.district||'';
+  if(!village&&!taluka)throw{code:'noname'};
+  return{village,taluka,district,state:a.state||''};
+ }finally{clearTimeout(to)}
+}
+function setUi(o){Object.assign(S.ui,o);if(S.screen==='loc')draw()}
+async function useMyLocation(){
+ if(S.ui.status==='detecting')return;
+ const id=++S.ui.reqId,live=()=>S.ui.reqId===id;
+ setUi({status:'detecting',msg:null,pending:null});
+ // watchdog: some browsers never answer if the permission prompt is ignored
+ const wd=setTimeout(()=>{if(live()){S.ui.reqId++;setUi({status:'error',msg:'e_timeout'})}},20000);
+ try{
+  const pos=await locationService();if(!live())return;
+  let place;
+  try{place=await reverseGeocode(pos.lat,pos.lon,S.lang)}
+  catch(e){if(live())setUi({status:'error',msg:'e_name'});return}
+  if(!live())return;
+  setUi({status:'detected',pending:{...place,lat:pos.lat,lon:pos.lon,source:'gps'}});
+ }catch(e){
+  if(live())setUi({status:'error',msg:({denied:'e_denied',unsupported:'e_unsup',timeout:'e_timeout'})[e&&e.code]||'e_unavail'});
+ }finally{clearTimeout(wd)}
+}
+function finishLocation(){const to=S.locReturn||'home';S.locReturn='home';nav(to)}
+function confirmLocation(){if(!S.ui.pending)return;S.loc=S.ui.pending;finishLocation()}
+function pickPlace(id){const p=GAZ.places.find(x=>x.id===id);if(!p)return;S.loc={placeId:id,lat:p.lat,lon:p.lon,source:'manual'};finishLocation()}
+function changeLocation(){S.locReturn='prof';nav('loc')}
+// helpers to read the stored location
+function locParts(L){
+ if(!L)return null;
+ if(L.placeId){const p=GAZ.places.find(x=>x.id===L.placeId);return{name:p.name[S.lang],district:GAZ.district[S.lang],sub:GAZ.state[S.lang]}}
+ const name=L.village||L.taluka;
+ return{name,district:L.district||(L.taluka&&L.village?L.taluka:''),sub:[L.taluka&&L.village?L.taluka:'',L.district].filter(Boolean).join(' · ')}
+}
+function locLabel(){const p=locParts(S.loc);return p?[p.name,p.district].filter(Boolean).join(', '):t().nl}
+function locDistrict(){const p=locParts(S.loc);return p?p.district:''}
+function locCoords(){return S.loc&&S.loc.lat!=null?{lat:S.loc.lat,lon:S.loc.lon}:{lat:null,lon:null}}
+
+/* ---------- WEATHER SERVICE ----------
+   SAMPLE DATA ONLY. Not fetched from any weather API.
+   Replace getWeatherData() with a real call later; nothing else needs to change.
+   LAST-KNOWN WEATHER (this) is kept separate from OFFLINE SAFETY GUIDANCE (GUIDE above),
+   which is bundled in the file and always available. */
+const SAMPLE_WEATHER={source:'sample',asOf:null,tempC:45,humidity:38,windKmh:12,rainPct:0,localHour:14,
+ daily:[45,44,39,36,41],cloudy:[false,false,true,true,false]};
+function getWeatherData(lat,lon){return{...SAMPLE_WEATHER}}
+
+/* ---------- ALERT SAMPLE (lightning) ---------- */
+const ALERT={type:'lightning',minutes:45,source:'sample'};
+
+/* ---------- SAFETY ENGINE (rules decide the hazard; text only explains) ----------
+   Demo thresholds, designed to be replaced by a proper rules engine. */
+const LEVELS=['low','moderate','high','very_high','extreme'];
+function safetyEngine({weather:w,role,activity}){
+ let lv=w.tempC>=45?4:w.tempC>=41?3:w.tempC>=38?2:w.tempC>=35?1:0;
+ const reasons=[];if(lv>=1)reasons.push('temperature');
+ if(w.humidity>=60&&lv>=1&&lv<4){lv++;reasons.push('humidity')}
+ const midday=w.localHour>=11&&w.localHour<=16;
+ const outdoor=role===0||role===1||role===3||['field_work','irrigation','machinery','travelling','animal_care'].includes(activity);
+ if(midday&&outdoor&&lv>=1&&lv<4){lv++;reasons.push('midday_outdoor')}
+ // NOTE: alert/guide text exists for the heat hazard; the sample data always triggers it.
+ return{hazard:'heat',level:LEVELS[lv],levelIndex:lv,reasons};
+}
+
+/* ---------- GUIDANCE SERVICE ---------- */
+function guidanceService(risk,role,lang){return GUIDE[lang][role]}
+function view(){
+ const c=locCoords(),w=getWeatherData(c.lat,c.lon),risk=safetyEngine({weather:w,role:S.role,activity:S.activity});
+ return{w,risk,g:guidanceService(risk,S.role,S.lang)};
+}
+
+/* ---------- VOICE SERVICE ---------- */
+function say(){
+ try{
+  if(!('speechSynthesis' in window)||typeof SpeechSynthesisUtterance==='undefined')return;
+  const{w,g}=view(),u=new SpeechSynthesisUtterance(t().now.replace('{t}',w.tempC)+'. '+g.adv);
+  u.lang=VOICE[S.lang];
+  speechSynthesis.cancel();speechSynthesis.speak(u);
+ }catch(e){}
+}
+function stopVoice(){try{if('speechSynthesis' in window)speechSynthesis.cancel()}catch(e){}}
+
+/* ---------- ACTIONS ---------- */
+function openHealthCentres(){
+ const c=locCoords(),q='primary health centre near '+(c.lat!=null?c.lat+','+c.lon:locLabel());
+ try{window.open('https://www.google.com/maps/search/'+encodeURIComponent(q),'_blank','noopener')}catch(e){}
+}
+function markSafe(){if(S.safe)return;S.safe=true;draw()} // simulated: no SMS / notification is sent
+function remaining(){return Math.max(0,Math.floor((S.alertEnd-Date.now())/1000))}
+const fmtTime=s=>N(String(s/60|0).padStart(2,'0')+':'+String(s%60).padStart(2,'0'));
+function nav(s){
+ if(s==='live'&&!S.alertEnd)S.alertEnd=Date.now()+ALERT.minutes*60000;
+ if(s==='loc'){S.ui.reqId++;S.ui={status:'idle',msg:null,pending:null,reqId:S.ui.reqId}}
+ if(s!==S.screen)stopVoice();
+ S.screen=s;draw();
+}
+function setLang(l){S.lang=l;document.documentElement.lang=l;draw()}
+function setRole(i){S.role=i;draw()}
+
+/* ---------- ICONS ---------- */
+const P={bell:'<path d="M6 9a6 6 0 0 1 12 0c0 6 2 7 2 7H4s2-1 2-7M10 20a2 2 0 0 0 4 0"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>',drop:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>',home:'<path d="M3 11l9-8 9 8M5 9.5V21h5v-6h4v6h5V9.5"/>',cow:'<path d="M5 8a3 3 0 0 1-2-3M19 8a3 3 0 0 0 2-3M6 8h12l1 6a4 4 0 0 1-4 5H9a4 4 0 0 1-4-5zM9 13v1M15 13v1"/>',warn:'<path d="M12 3l10 18H2zM12 10v5M12 18v.5"/>',book:'<path d="M5 3h13v18H7a2 2 0 0 1-2-2zM5 19a2 2 0 0 1 2-2h11"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',bolt:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',pin:'<path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2"/>',spk:'<path d="M4 9v6h4l5 4V5L8 9zM16 9a4 4 0 0 1 0 6"/>',phone:'<path d="M5 3h4l2 5-2 1a11 11 0 0 0 6 6l1-2 5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2z"/>',back:'<path d="M15 5l-7 7 7 7"/>',shield:'<path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6z"/>',msg:'<path d="M4 5h16v11H9l-5 4z"/>',cloud:'<path d="M7 18a4 4 0 0 1 0-8 5 5 0 0 1 10 1 3.5 3.5 0 0 1 0 7z"/>'};
+const ic=(n,s)=>`<svg class="svg" viewBox="0 0 24 24" ${s?`style="width:${s}px;height:${s}px"`:''}>${P[n]}</svg>`;
+const RI=[['sun','#fdecc8','#d99a14'],['drop','#e3eeea','#1f4f4b'],['home','#f1e6e0','#b4573b'],['cow','#ece4f1','#7a5190']];
+
+/* ---------- VIEWS ---------- */
+function tabs(a){const d=t().tb,k=[['home','home'],['warn','alerts'],['book','guide'],['user','prof']];
+ return k.map((x,i)=>`<button class="${a===x[1]?'on':''}" onclick="nav('${x[1]}')">${ic(x[0])}<span>${d[i]}</span></button>`).join('')}
+function topbar(){return `<div class="top"><div><div class="loc">${ic('pin',14)} ${locLabel()}</div><h1>${t().hi}${t().r[S.role]}</h1></div><button class="bell" aria-label="${t().nt}" onclick="nav('alerts')">${ic('bell',24)}<i>${N(2)}</i></button></div>`}
+function hd(){return `<div class="hd"><div class="brand">${ic('sun',34)}ऋतु सजग</div><p>Rutu Sajag</p><div class="chips">${['mr','hi','en'].map(l=>`<button class="${S.lang===l?'on':''}" onclick="setLang('${l}')">${LN[l]}</button>`).join('')}</div></div>`}
+function onb(){return hd()+`
+<h2>${t().q}</h2><div class="sub">${t().qs}</div><div class="grid">${t().r.map((r,i)=>`<button class="role ${S.role===i?'on':''}" onclick="setRole(${i})"><span class="ib" style="background:${RI[i][1]};color:${RI[i][2]}">${ic(RI[i][0],30)}</span>${r}</button>`).join('')}</div>
+<button class="cta" onclick="nav('loc')">${t().go}</button><div class="note">${ic('shield',16)} ${t().loc}</div>`}
+function loc(){
+ const x=t(),u=S.ui;let main='';
+ if(u.status==='detected'&&u.pending){
+  const p=locParts(u.pending);
+  main=`<div class="card"><span class="ib" style="background:#e3eeea;color:#1f4f4b">${ic('pin',26)}</span><div><b>${p.name}</b><div style="font-size:14px;color:var(--mut)">${p.sub||p.district}</div></div></div><button class="cta" style="margin-top:0" onclick="confirmLocation()">${x.lc}</button>`;
+ }else{
+  const busy=u.status==='detecting';
+  main=`<button class="cta" style="margin-top:0" ${busy?'disabled aria-busy="true"':''} onclick="useMyLocation()">${busy?x.ld:x.lu}</button>`
+   +(busy?`<div class="sms">${ic('pin',22)} ${x.lhint}</div>`:'')
+   +(u.status==='error'?`<div class="warn" style="font-size:14.5px;margin-top:12px" role="alert">${x[u.msg]}</div>`:'');
+ }
+ return hd()+`<h2>${x.lq}</h2><div class="sub">${x.lqs}</div>${main}
+<h3>${x.lm}</h3><div class="sub" style="margin-bottom:10px">${GAZ.state[S.lang]} › ${GAZ.district[S.lang]}</div>`
+ +GAZ.places.map(p=>`<button class="card" onclick="pickPlace('${p.id}')"><span class="ib" style="background:#e3eeea;color:#1f4f4b">${ic('pin',24)}</span>${p.name[S.lang]}</button>`).join('')}
+function home(){const x=t(),{w,g}=view();
+ return topbar()+`<div class="dng"><div class="t">${ic('warn',24)} ${x.tag}</div><div class="big">${x.now.replace('{t}',N(w.tempC))}</div><p>${g.adv}</p><div class="row"><button onclick="nav('guide')">${x.full}</button><button class="v" aria-label="Read aloud" onclick="say()">${ic('spk',24)}</button></div></div>
+<div class="st"><div>${x.hum}<b>${N(w.humidity)}%</b></div><div>${x.wnd}<b>${N(w.windKmh)} km/h</b></div><div>${x.rn}<b>${N(w.rainPct)}%</b></div></div>
+<h3>${x.n5}</h3><div class="days">${w.daily.map((v,i)=>`<div class="d ${i?'':'on'}">${x.dy[i]}${w.cloudy[i]?`<span style="display:block;margin-top:4px;color:var(--mut)">${ic('cloud',20)}</span>`:'<span class="dot"></span>'}<b>${N(v)}°</b></div>`).join('')}</div>
+<h3>${x.care}</h3><div class="card"><span class="ib" style="background:#fdecc8;color:#d99a14">${ic('sun',26)}</span>${g.c1}</div><div class="card"><span class="ib" style="background:#e3eeea;color:#1f4f4b">${ic('drop',26)}</span>${g.c2}</div>
+<div class="sos"><button style="background:var(--red);color:#fff" onclick="location.href='tel:108'">${ic('phone',20)} ${N(108)}</button><button style="background:var(--g2);color:var(--g)" onclick="openHealthCentres()">${ic('pin',20)} ${x.hc}</button></div>
+<div class="sms">${ic('msg',22)} ${x.sms}</div>`}
+function alerts(){const c=['var(--dred)','var(--red)','var(--g)'],a=['live','guide','alerts'];
+ return `<div class="top"><h1>${t().nt}</h1></div>`+t().n.map((n,i)=>`<button class="nt" style="border-left-color:${c[i]}" onclick="nav('${a[i]}')"><b>${n[0]}</b><span>${n[1]}</span><em>${n[2]}</em></button>`).join('')}
+function live(){const x=t();
+ return `<div class="live"><div class="bar"><span class="pill"><s></s>DEMO ALERT</span><span>${locDistrict()}</span></div><div class="mid"><div class="ring">${ic('bolt',46)}</div><div style="font-size:14px;letter-spacing:.5px;color:#f3c9c1;font-weight:700">${x.lt}</div><h1>${x.lh}</h1><p>${x.lb}</p><span class="tm" id="tm">${fmtTime(remaining())}</span></div>
+<div class="sheet"><h4>${x.lw}</h4><ul style="padding:0">${x.ls.map((s,i)=>`<li><b>${N(i+1)}</b>${s}</li>`).join('')}</ul><button class="safe ${S.safe?'ok':''}" onclick="markSafe()">${S.safe?x.sd:x.sf}</button><div class="fam">${S.safe?x.fm2:x.fm}</div></div></div>`}
+function guide(){const x=t(),{w,g}=view(),c=['var(--red)','var(--g)','var(--amb)'];
+ return `<div class="gt"><button class="back" aria-label="Back" onclick="nav('home')">${ic('back')}</button><h1>${x.gt}</h1></div><div class="card" style="margin-bottom:6px"><span class="ib" style="background:#fdecc8;color:#d99a14">${ic('sun',28)}</span><div><b>${x.gs.replace('{t}',N(w.tempC)).replace('{r}',x.r[S.role])}</b></div></div><div class="ai">${x.ai}</div>
+<h3 style="color:var(--mut)">${x.gn}</h3>${g.g.map((s,i)=>`<div class="step" style="border-left-color:${c[i]}"><span style="color:${c[i]}">${ic(s[0],28)}</span><div><b>${s[1]}</b><span>${s[2]}</span></div></div>`).join('')}
+<h3 style="color:var(--mut)">${x.sy}</h3><div class="warn">${x.sb}<button onclick="openHealthCentres()">${x.hcs}</button></div>`}
+function prof(){const x=t();
+ return `<div class="top"><h1>${x.tb[3]}</h1></div>`+x.pf.map((f,i)=>{
+  const val=i==0?locLabel():i==1?x.r[S.role]:i==2?LN[S.lang]:x.pv[i];
+  const inner=`<span style="color:var(--mut);font-size:14px">${f}</span><b>${val}</b>`;
+  return i==0?`<button class="card" style="justify-content:space-between" onclick="changeLocation()">${inner}</button>`
+              :`<div class="card" style="justify-content:space-between">${inner}</div>`}).join('')
+ +`<div class="chips" style="margin-top:6px">${['mr','hi','en'].map(l=>`<button style="background:${S.lang===l?'var(--g)':'var(--g2)'};color:${S.lang===l?'#fff':'var(--g)'}" onclick="setLang('${l}')">${LN[l]}</button>`).join('')}</div>`}
+
+/* ---------- RENDER ---------- */
+const D=[['onb','Onboarding'],['loc','Location'],['home','Home'],['alerts','Notifications'],['live','Live alert'],['guide','Heat guide']];
+const VIEWS={onb,loc,home,alerts,live,guide,prof};
+function draw(){
+ const s=document.getElementById('scr');
+ s.innerHTML=VIEWS[S.screen]();
+ s.style.paddingBottom=S.screen=='live'?0:'';
+ if(S.screen!==lastScr)s.scrollTop=0;
+ lastScr=S.screen;
+ const tb=document.getElementById('tabs'),show=!['onb','loc','live'].includes(S.screen);
+ tb.style.display=show?'flex':'none';tb.innerHTML=show?tabs(S.screen):'';
+ document.getElementById('dev').innerHTML=D.map(d=>`<button class="${S.screen==d[0]?'on':''}" onclick="nav('${d[0]}')">${d[1]}</button>`).join('');
+ // countdown only runs on the live-alert screen and stops once marked safe
+ clearInterval(tick);tick=null;
+ if(S.screen=='live'&&!S.safe){
+  tick=setInterval(()=>{
+   const e=document.getElementById('tm');
+   if(!e||S.screen!=='live'){clearInterval(tick);tick=null;return}
+   e.textContent=fmtTime(remaining());
+  },1000);
+ }
+}
+window.addEventListener('online',()=>{S.online=true});
+window.addEventListener('offline',()=>{S.online=false});
+document.documentElement.lang=S.lang;
+draw();
+</script></body></html>

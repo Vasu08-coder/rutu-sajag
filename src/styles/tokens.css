@@ -1,0 +1,25 @@
+:root {
+  --g: #1f4f4b;
+  --g2: #e6efec;
+  --cream: #faf5ec;
+  --red: #c1452d;
+  --dred: #7a1f15;
+  --amb: #e0a526;
+  --ink: #231f1a;
+  --mut: #7b7367;
+  --line: #e8dfcc;
+  --bg: #e9e3d6;
+  --w: #fff;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1b1916;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1b1916;
+}
