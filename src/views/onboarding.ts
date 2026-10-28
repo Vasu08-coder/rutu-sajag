@@ -78,6 +78,6 @@ export function renderOnboarding(): string {
         </button>`).join('')}
     </div>
     ${speciesSectionHtml}
-    <button class="cta" onclick="window.__app.nav('loc')">${t().go}</button>
+    <button class="cta" onclick="${S.onbReturn === 'prof' ? 'window.__app.finishRoleEdit()' : `window.__app.nav('loc')`}">${t().go}</button>
     <div class="note">${ic('shield', 16)} ${t().loc}</div>`;
 }

@@ -199,6 +199,7 @@ const app = {
   confirmLocation(): void {
     if (!S.ui.pending) return;
     S.loc = S.ui.pending;
+    S.onboarded = true;
     const to = S.locReturn || 'home';
     S.locReturn = 'home';
     refreshLiveWeatherAndAlerts(true);
@@ -216,6 +217,7 @@ const app = {
       district: p.district || (GAZ.places.includes(p) ? 'Yavatmal' : undefined),
       coastal: p.coastal || false,
     };
+    S.onboarded = true;
     const to = S.locReturn || 'home';
     S.locReturn = 'home';
     refreshLiveWeatherAndAlerts(true);
@@ -225,6 +227,17 @@ const app = {
   changeLocation(): void {
     S.locReturn = 'prof';
     this.nav('loc');
+  },
+
+  changeRole(): void {
+    S.onbReturn = 'prof';
+    this.nav('onb');
+  },
+
+  finishRoleEdit(): void {
+    S.onbReturn = null;
+    refreshLiveWeatherAndAlerts(true);
+    this.nav('prof');
   },
 
   markSafe(): void {

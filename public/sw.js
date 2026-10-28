@@ -1,7 +1,7 @@
 // Service Worker for ऋतु सजग · Rutu Sajag
 // Precaches app shell + Noto Sans Devanagari font for full offline use
 
-const CACHE_NAME = 'rutu-sajag-v1';
+const CACHE_NAME = 'rutu-sajag-v2';
 const FONT_CACHE = 'rutu-sajag-fonts-v1';
 
 // App shell assets to precache

@@ -8,9 +8,9 @@ export function renderProfile(): string {
   const fields = x.pf.map((f: string, i: number) => {
     const val = i === 0 ? locLabel() : i === 1 ? x.r[S.role] : i === 2 ? LN[S.lang] : x.pv[i];
     const inner = `<span style="color:var(--mut);font-size:14px">${f}</span><b>${val}</b>`;
-    return i === 0
-      ? `<button class="card" style="justify-content:space-between" onclick="window.__app.changeLocation()">${inner}</button>`
-      : `<div class="card" style="justify-content:space-between">${inner}</div>`;
+    if (i === 0) return `<button class="card" style="justify-content:space-between" onclick="window.__app.changeLocation()">${inner}</button>`;
+    if (i === 1) return `<button class="card" style="justify-content:space-between" onclick="window.__app.changeRole()">${inner}</button>`;
+    return `<div class="card" style="justify-content:space-between">${inner}</div>`;
   });
 
   // Livestock species management panel for Role 3 (Animals row)

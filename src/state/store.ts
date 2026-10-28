@@ -47,6 +47,8 @@ export interface AppState {
   lang: LangCode;
   role: number;
   screen: Screen;
+  onboarded: boolean;
+  onbReturn: Screen | null;
   activity: string | null;
   loc: LocData | null;
   locReturn: Screen;
@@ -134,7 +136,7 @@ function savePersisted(s: AppState): void {
   try {
     // URL overrides are never written to localStorage in production
     const langToSave = (!DEBUG_ENABLED && hasUrlLangOverride) ? (persisted.lang || 'mr') : s.lang;
-    const data = { lang: langToSave, role: s.role, loc: s.loc };
+    const data = { lang: langToSave, role: s.role, loc: s.loc, onboarded: s.onboarded };
     localStorage.setItem(PERSIST_KEY, JSON.stringify(data));
     if (FEATURE_SPECIES_V2) {
       savePersistedLivestock(s.livestockProfile);
@@ -192,7 +194,7 @@ export function resolveInitialStateFromUrl(
   if (!debugEnabled) {
     return {
       isDemo: false,
-      screen: (persistedState.loc ? 'home' : 'onb'),
+      screen: (persistedState.onboarded ? 'home' : 'onb'),
       role: persistedState.role ?? 0,
       livestockProfile: persistedLivestockList,
       lang,
@@ -206,7 +208,7 @@ export function resolveInitialStateFromUrl(
   const roleParam = params.get('role');
   const role = roleParam != null ? parseInt(roleParam, 10) : (persistedState.role ?? 0);
   const screenParam = params.get('screen') as Screen | null;
-  const screen = screenParam || (persistedState.loc ? 'home' : 'onb');
+  const screen = screenParam || (persistedState.onboarded ? 'home' : 'onb');
   const animalsParam = params.get('animals');
   const parsedAnimals = parseUrlAnimals(animalsParam);
   const livestockProfile = parsedAnimals ?? persistedLivestockList;
@@ -238,6 +240,8 @@ export const S: AppState = {
   lang: resolvedInit.lang,
   role: resolvedInit.role,
   screen: resolvedInit.screen,
+  onboarded: persisted.onboarded === true,
+  onbReturn: null,
   activity: null,
   loc: persisted.loc ?? { placeId: 'yavatmal', lat: 20.39, lon: 78.13, source: 'manual' },
   locReturn: 'home',
