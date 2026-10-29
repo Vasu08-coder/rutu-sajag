@@ -218,7 +218,7 @@ In production builds, the app strictly enforces security lockdown:
 ### 2. Environment Variables
 - `VITE_ENABLE_DEBUG`:
   - In production: absent / `false`.
-  - In development (`.env.development` only): set to `true` to enable scenario injection and debug screen navigation.
+  - In development (`.env.development` only): set to `true` to enable scenario injection and debug screen navigation. Final change.
 
 
 
